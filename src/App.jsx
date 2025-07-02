@@ -1,35 +1,89 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import Dashboard from './components/Dashboard';
+import BusOperations from './components/BusOperations';
+import TrainOperations from './components/TrainOperations';
+import TrackOperations from './components/TrackOperations';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeView, setActiveView] = useState('dashboard');
+
+  const renderView = () => {
+    switch(activeView) {
+      case 'dashboard':
+        return <Dashboard onNavigate={setActiveView} />;
+      case 'bus':
+        return <BusOperations onNavigate={setActiveView} />;
+      case 'train':
+        return <TrainOperations onNavigate={setActiveView} />;
+      case 'track':
+        return <TrackOperations onNavigate={setActiveView} />;
+      default:
+        return <Dashboard onNavigate={setActiveView} />;
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-blue-900 text-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center">
+              <h1 className="text-2xl font-bold">CTA AI Maintenance System</h1>
+              <span className="ml-3 text-blue-200 text-sm">Chicago Transit Authority</span>
+            </div>
+            <nav className="flex space-x-6">
+              <button
+                onClick={() => setActiveView('dashboard')}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeView === 'dashboard' 
+                    ? 'bg-blue-700 text-white' 
+                    : 'text-blue-200 hover:text-white hover:bg-blue-800'
+                }`}
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => setActiveView('bus')}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeView === 'bus' 
+                    ? 'bg-blue-700 text-white' 
+                    : 'text-blue-200 hover:text-white hover:bg-blue-800'
+                }`}
+              >
+                Bus Operations
+              </button>
+              <button
+                onClick={() => setActiveView('train')}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeView === 'train' 
+                    ? 'bg-blue-700 text-white' 
+                    : 'text-blue-200 hover:text-white hover:bg-blue-800'
+                }`}
+              >
+                Train Operations
+              </button>
+              <button
+                onClick={() => setActiveView('track')}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  activeView === 'track' 
+                    ? 'bg-blue-700 text-white' 
+                    : 'text-blue-200 hover:text-white hover:bg-blue-800'
+                }`}
+              >
+                Track Operations
+              </button>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {renderView()}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
