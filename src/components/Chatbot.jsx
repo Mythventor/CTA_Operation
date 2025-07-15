@@ -10,19 +10,15 @@ const insights = [
   
   `This month’s maintenance bill is projected at $485K for buses, $892K for trains, and $1.25M for tracks, totaling around $2.627M. Keep an eye on these figures to stay within budget.`,
   
-  `Upcoming in the next 14 days:  
-   • Medium priority: BUS‑4521 oil change on July 5 ($85)  
-   • High priority: TRAIN‑302 brake inspection on July 3 ($1,200)  
-   • Critical: TRACK‑ML‑15 rail replacement on July 8 ($45,000)  
-   • High priority: BUS‑7829 transmission service on July 6 ($850)  
-   • Medium priority: TRAIN‑118 motor overhaul on July 12 ($8,500)`  
+  `Upcoming in the next 14 days:\n• MEDIUM  BUS‑4521 — Oil Change — $85  (Due: 2024‑07‑05)\n• HIGH   TRAIN‑302 — Brake Inspection — $1,200  (Due: 2024‑07‑03)\n• CRITICAL TRACK‑ML‑15 — Rail Replacement — $45,000  (Due: 2024‑07‑08)\n• HIGH   BUS‑7829 — Transmission Service — $850  (Due: 2024‑07‑06)\n• MEDIUM  TRAIN‑118 — Motor Overhaul — $8,500  (Due: 2024‑07‑12)`
 ];
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
-    { from: 'bot', text: "Hi there! I'm MainGo AI. Need any operational insights today?" }
+    { from: 'bot', text: "Hi there! I'm maingoAI. Need any operational insights today?" }
   ]);
   const [input, setInput] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
 
   const sendMessage = () => {
     if (!input.trim()) return;
@@ -35,14 +31,38 @@ export default function Chatbot() {
     setInput('');
   };
 
+  // Closed state: just the little robot button
+  if (!isOpen) {
+    return (
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg text-2xl"
+        aria-label="Open chat"
+      >
+        🤖
+      </button>
+    );
+  }
+
+  // Open state: full chat panel
   return (
-    <div className="fixed bottom-0 right-0 m-4 w-80 bg-white shadow-xl rounded-lg overflow-hidden flex flex-col">
-      {/* Header */}
-      <div className="bg-blue-900 text-white px-4 py-2 font-bold">
-        maingoAI
+    <div
+      className="fixed bottom-4 right-4 w-80 bg-white shadow-xl rounded-lg 
+                 flex flex-col overflow-hidden max-h-[80vh] z-40"
+    >
+      {/* Header with close button */}
+      <div className="bg-blue-900 text-white px-4 py-2 font-bold flex justify-between items-center">
+        <span>maingoAI</span>
+        <button
+          onClick={() => setIsOpen(false)}
+          className="text-xl leading-none"
+          aria-label="Close chat"
+        >
+          &times;
+        </button>
       </div>
 
-      {/* Message Stream */}
+      {/* Messages area */}
       <div className="flex-1 p-4 overflow-y-auto space-y-2">
         {messages.map((msg, idx) => (
           <div
