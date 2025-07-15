@@ -1,14 +1,16 @@
+// src/App.js
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import BusOperations from './components/BusOperations';
 import TrainOperations from './components/TrainOperations';
 import TrackOperations from './components/TrackOperations';
+import Chatbot from './components/Chatbot';
 
 function App() {
   const [activeView, setActiveView] = useState('dashboard');
 
   const renderView = () => {
-    switch(activeView) {
+    switch (activeView) {
       case 'dashboard':
         return <Dashboard onNavigate={setActiveView} />;
       case 'bus':
@@ -23,21 +25,23 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative pb-40">
       {/* Header */}
       <header className="bg-blue-900 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
               <h1 className="text-2xl font-bold">CTA AI Maintenance System</h1>
-              <span className="ml-3 text-blue-200 text-sm">Chicago Transit Authority</span>
+              <span className="ml-3 text-blue-200 text-sm">
+                Chicago Transit Authority
+              </span>
             </div>
             <nav className="flex space-x-6">
               <button
                 onClick={() => setActiveView('dashboard')}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeView === 'dashboard' 
-                    ? 'bg-blue-700 text-white' 
+                  activeView === 'dashboard'
+                    ? 'bg-blue-700 text-white'
                     : 'text-blue-200 hover:text-white hover:bg-blue-800'
                 }`}
               >
@@ -46,8 +50,8 @@ function App() {
               <button
                 onClick={() => setActiveView('bus')}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeView === 'bus' 
-                    ? 'bg-blue-700 text-white' 
+                  activeView === 'bus'
+                    ? 'bg-blue-700 text-white'
                     : 'text-blue-200 hover:text-white hover:bg-blue-800'
                 }`}
               >
@@ -56,8 +60,8 @@ function App() {
               <button
                 onClick={() => setActiveView('train')}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeView === 'train' 
-                    ? 'bg-blue-700 text-white' 
+                  activeView === 'train'
+                    ? 'bg-blue-700 text-white'
                     : 'text-blue-200 hover:text-white hover:bg-blue-800'
                 }`}
               >
@@ -66,8 +70,8 @@ function App() {
               <button
                 onClick={() => setActiveView('track')}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                  activeView === 'track' 
-                    ? 'bg-blue-700 text-white' 
+                  activeView === 'track'
+                    ? 'bg-blue-700 text-white'
                     : 'text-blue-200 hover:text-white hover:bg-blue-800'
                 }`}
               >
@@ -82,6 +86,9 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {renderView()}
       </main>
+
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   );
 }
