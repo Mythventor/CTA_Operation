@@ -1,10 +1,11 @@
-// src/App.js
+// src/App.jsx
 import React, { useState } from 'react';
 import Dashboard from './components/Dashboard';
 import BusOperations from './components/BusOperations';
 import TrainOperations from './components/TrainOperations';
 import TrackOperations from './components/TrackOperations';
 import Chatbot from './components/Chatbot';
+import logo from './assets/maingo.png';
 
 function App() {
   const [activeView, setActiveView] = useState('dashboard');
@@ -31,7 +32,12 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold">CTA AI Maintenance System</h1>
+              <img 
+                src={logo} 
+                alt="MainGo Logo" 
+                className="h-13 w-auto mr-3"
+              />
+              <h1 className="text-2xl font-bold">MainGo</h1>
               <span className="ml-3 text-blue-200 text-sm">
                 Chicago Transit Authority
               </span>
